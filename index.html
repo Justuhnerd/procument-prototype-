@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABSA Bank | Procurement Portal</title>
+    <title>ABSA Procurement Portal</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -11,246 +11,499 @@
     <!-- Custom CSS -->
     <style>
         :root {
-            --absa-primary: #aa0041;
-            --absa-secondary: #E2001A;
-            --absa-accent: #FFCD00;
-            --absa-dark: #003366;
-            --absa-light: #F5F7FA;
+            --absa-red: #E41E26;
+            --absa-dark-red: #A50021;
+            --absa-blue: #0066B1;
+            --absa-light-gray: #F5F5F5;
+            --absa-dark-gray: #333333;
+            --powerapps-form-bg: #F8F9FA;
+            --powerapps-border: #CED4DA;
+            --powerapps-highlight: #E7F1FF;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--absa-light);
+            background-color: var(--absa-light-gray);
         }
         
-        .navbar {
+        .absa-navbar {
             background-color: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 4px solid var(--absa-red);
         }
         
-        .navbar-brand img {
+        .absa-logo {
             height: 40px;
         }
         
-        .absa-bg-primary {
-            background-color: var(--absa-primary) !important;
-        }
-        
-        .absa-text-primary {
-            color: var(--absa-primary) !important;
-        }
-        
-        .absa-bg-secondary {
-            background-color: var(--absa-secondary) !important;
-        }
-        
-        .absa-text-secondary {
-            color: var(--absa-secondary) !important;
-        }
-        
-        .absa-btn-primary {
-            background-color: var(--absa-primary);
-            color: white;
-            border: none;
-        }
-        
-        .absa-btn-primary:hover {
-            background-color: var(--absa-dark);
-            color: white;
-        }
-        
-        .absa-btn-secondary {
-            background-color: var(--absa-secondary);
-            color: white;
-            border: none;
-        }
-        
-        .absa-btn-secondary:hover {
-            background-color: #C00000;
-            color: white;
-        }
-        
-        .sidebar {
+        .powerapps-card {
+            border-radius: 4px;
+            border: 1px solid var(--powerapps-border);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             background-color: white;
-            min-height: calc(100vh - 56px);
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+            transition: box-shadow 0.2s;
         }
         
-        .sidebar .nav-link {
-            color: var(--absa-dark);
-            border-radius: 5px;
-            margin-bottom: 5px;
+        .powerapps-card:hover {
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
         
-        .sidebar .nav-link:hover {
-            background-color: rgba(0, 100, 170, 0.1);
-        }
-        
-        .sidebar .nav-link.active {
-            background-color: var(--absa-primary);
-            color: white;
-        }
-        
-        .sidebar .nav-link i {
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
-        }
-        
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card-header {
-            background-color: white;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        .powerapps-card-header {
+            background-color: var(--powerapps-form-bg);
+            color: var(--absa-dark-gray);
+            border-bottom: 1px solid var(--powerapps-border);
+            padding: 10px 15px;
             font-weight: 600;
+            font-size: 14px;
         }
         
-        .status-badge {
-            padding: 5px 10px;
-            border-radius: 20px;
+        .powerapps-btn {
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 6px 12px;
+            border: 1px solid transparent;
+        }
+        
+        .powerapps-btn-primary {
+            background-color: var(--absa-red);
+            color: white;
+        }
+        
+        .powerapps-btn-primary:hover {
+            background-color: var(--absa-dark-red);
+            color: white;
+        }
+        
+        .powerapps-btn-secondary {
+            background-color: var(--absa-blue);
+            color: white;
+        }
+        
+        .powerapps-btn-secondary:hover {
+            background-color: #005999;
+            color: white;
+        }
+        
+        .powerapps-btn-outline {
+            background-color: white;
+            border-color: var(--powerapps-border);
+            color: var(--absa-dark-gray);
+        }
+        
+        .powerapps-btn-outline:hover {
+            background-color: var(--powerapps-form-bg);
+        }
+        
+        .powerapps-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
             font-size: 12px;
-            font-weight: 600;
         }
         
-        .status-pending {
+        .badge-pending {
             background-color: #FFF3CD;
             color: #856404;
         }
         
-        .status-approved {
+        .badge-approved {
             background-color: #D4EDDA;
             color: #155724;
         }
         
-        .status-rejected {
+        .badge-rejected {
             background-color: #F8D7DA;
             color: #721C24;
         }
         
-        .status-closed {
-            background-color: #E2E3E5;
-            color: #383D41;
+        .badge-rfq {
+            background-color: #E7F1FF;
+            color: #0A58CA;
         }
         
-        .dashboard-stat {
-            border-left: 4px solid var(--absa-primary);
-            padding-left: 15px;
+        .powerapps-sidebar {
+            background-color: white;
+            height: calc(100vh - 60px);
+            border-right: 1px solid var(--powerapps-border);
+            position: sticky;
+            top: 60px;
         }
         
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-        }
-        
-        .stat-label {
+        .powerapps-sidebar-item {
+            padding: 10px 15px;
+            color: var(--absa-dark-gray);
+            border-left: 4px solid transparent;
+            transition: all 0.2s;
             font-size: 14px;
-            color: #6C757D;
+            cursor: pointer;
         }
         
-        .table th {
-            background-color: var(--absa-light);
-            color: var(--absa-dark);
-            font-weight: 600;
+        .powerapps-sidebar-item:hover, .powerapps-sidebar-item.active {
+            background-color: rgba(228, 30, 38, 0.08);
+            border-left: 4px solid var(--absa-red);
+            color: var(--absa-red);
         }
         
-        .form-control:focus, .form-select:focus {
-            border-color: var(--absa-primary);
-            box-shadow: 0 0 0 0.25rem rgba(0, 100, 170, 0.25);
+        .powerapps-sidebar-item i {
+            width: 20px;
+            text-align: center;
+            margin-right: 8px;
+            font-size: 14px;
         }
         
-        .progress {
-            height: 8px;
-            border-radius: 4px;
-        }
-        
-        .progress-bar {
-            background-color: var(--absa-primary);
-        }
-        
-        .timeline {
-            position: relative;
-            padding-left: 30px;
-        }
-        
-        .timeline:before {
-            content: '';
-            position: absolute;
-            left: 10px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: #E9ECEF;
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        
-        .timeline-item:before {
-            content: '';
-            position: absolute;
-            left: -30px;
-            top: 5px;
-            width: 12px;
-            height: 12px;
+        .powerapps-avatar {
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            background-color: var(--absa-primary);
-            border: 2px solid white;
+            background-color: var(--absa-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
         }
         
-        .timeline-item.completed:before {
-            background-color: var(--absa-secondary);
+        .powerapps-search {
+            border-radius: 4px;
+            padding: 6px 12px;
+            border: 1px solid var(--powerapps-border);
+            font-size: 14px;
+        }
+        
+        .powerapps-search:focus {
+            border-color: var(--absa-red);
+            box-shadow: 0 0 0 0.2rem rgba(228, 30, 38, 0.25);
+        }
+        
+        .powerapps-tab {
+            padding: 8px 12px;
+            color: var(--absa-dark-gray);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-right: 5px;
+        }
+        
+        .powerapps-tab.active {
+            border-bottom: 2px solid var(--absa-red);
+            color: var(--absa-red);
+        }
+        
+        .powerapps-form-control {
+            border-radius: 4px;
+            border: 1px solid var(--powerapps-border);
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+        
+        .powerapps-form-control:focus {
+            border-color: var(--absa-red);
+            box-shadow: 0 0 0 0.2rem rgba(228, 30, 38, 0.25);
+        }
+        
+        .powerapps-table {
+            font-size: 14px;
+        }
+        
+        .powerapps-table th {
+            background-color: var(--powerapps-form-bg);
+            color: var(--absa-dark-gray);
+            font-weight: 600;
+            padding: 10px 12px;
+        }
+        
+        .powerapps-table td {
+            padding: 10px 12px;
+            vertical-align: middle;
+            border-top: 1px solid var(--powerapps-border);
+        }
+        
+        .powerapps-status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        .indicator-pending {
+            background-color: #FFC107;
+        }
+        
+        .indicator-approved {
+            background-color: #28A745;
+        }
+        
+        .indicator-rejected {
+            background-color: #DC3545;
+        }
+        
+        .indicator-rfq {
+            background-color: #0D6EFD;
+        }
+        
+        .powerapps-progress-tracker {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .powerapps-progress-tracker::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--powerapps-border);
+            z-index: 1;
+        }
+        
+        .powerapps-progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+        
+        .powerapps-progress-step.completed .powerapps-step-number {
+            background-color: var(--absa-red);
+            color: white;
+        }
+        
+        .powerapps-progress-step.active .powerapps-step-number {
+            border: 2px solid var(--absa-red);
+            background-color: white;
+            color: var(--absa-red);
+        }
+        
+        .powerapps-progress-step.pending .powerapps-step-number {
+            background-color: var(--powerapps-form-bg);
+            color: var(--absa-dark-gray);
+            border: 2px solid var(--powerapps-border);
+        }
+        
+        .powerapps-step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+            background-color: white;
+            border: 2px solid var(--powerapps-border);
+            font-size: 12px;
+        }
+        
+        .powerapps-step-label {
+            font-size: 11px;
+            color: var(--absa-dark-gray);
+            text-align: center;
+        }
+        
+        .powerapps-progress-bar {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            height: 2px;
+            background-color: var(--absa-red);
+            z-index: 1;
+            transition: width 0.3s;
+        }
+        
+        .powerapps-notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 10px;
+            background-color: var(--absa-red);
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .powerapps-form {
+            background-color: white;
+            border-radius: 4px;
+            padding: 15px;
+            border: 1px solid var(--powerapps-border);
+        }
+        
+        .powerapps-form-title {
+            color: var(--absa-red);
+            border-bottom: 1px solid var(--powerapps-border);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        .powerapps-form-group {
+            margin-bottom: 12px;
+        }
+        
+        .powerapps-form-label {
+            font-weight: 500;
+            color: var(--absa-dark-gray);
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        
+        .powerapps-required-field::after {
+            content: '*';
+            color: var(--absa-red);
+            margin-left: 3px;
+        }
+        
+        .powerapps-dropdown {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 14px;
+            padding-right: 25px;
+        }
+        
+        .powerapps-toggle {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+        
+        .powerapps-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .powerapps-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 20px;
+        }
+        
+        .powerapps-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .powerapps-slider {
+            background-color: var(--absa-red);
+        }
+        
+        input:checked + .powerapps-slider:before {
+            transform: translateX(20px);
+        }
+        
+        .powerapps-view-toggle {
+            display: flex;
+            align-items: center;
+            background-color: var(--powerapps-form-bg);
+            border-radius: 20px;
+            padding: 2px;
+            border: 1px solid var(--powerapps-border);
+        }
+        
+        .powerapps-view-toggle-btn {
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 13px;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        
+        .powerapps-view-toggle-btn.active {
+            background-color: var(--absa-red);
+            color: white;
+        }
+        
+        .management-only {
+            display: none;
+        }
+        
+        .management-view .management-only {
+            display: block;
+        }
+        
+        .management-view .user-only {
+            display: none;
+        }
+        
+        .powerapps-gallery-item {
+            border: 1px solid var(--powerapps-border);
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 10px;
+            background-color: white;
+            transition: all 0.2s;
+        }
+        
+        .powerapps-gallery-item:hover {
+            background-color: var(--powerapps-highlight);
+            border-color: var(--absa-blue);
+        }
+        
+        .powerapps-gallery-item.selected {
+            background-color: var(--powerapps-highlight);
+            border: 2px solid var(--absa-blue);
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <!-- Navigation Bar -->
+    <nav class="navbar absa-navbar navbar-expand-lg sticky-top py-2">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="absa_logo_red.png" alt="ABSA Bank Logo">
+                <img src="absa_logo_red.png" alt="ABSA Logo" class="absa-logo">
+                <span class="ms-2 d-none d-md-inline" style="font-weight: 500; color: var(--absa-dark-gray);">Procurement Portal</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-bell"></i>
-                            <span class="badge bg-danger rounded-pill">3</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><h6 class="dropdown-header">Notifications</h6></li>
-                            <li><a class="dropdown-item" href="#">New request requires approval</a></li>
-                            <li><a class="dropdown-item" href="#">RFQ response received</a></li>
-                            <li><a class="dropdown-item" href="#">Request #PR-2023-045 approved</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-center" href="#">View all</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-circle me-1"></i> Theo Masoko
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
+            <div class="d-flex align-items-center">
+                <div class="powerapps-view-toggle me-3">
+                    <button class="powerapps-view-toggle-btn user-view-btn active">User View</button>
+                    <button class="powerapps-view-toggle-btn management-view-btn">Management</button>
+                </div>
+                <div class="position-relative me-3">
+                    <i class="fas fa-bell fs-5 text-muted"></i>
+                    <span class="powerapps-notification-badge">3</span>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown">
+                        <div class="powerapps-avatar me-2">JD</div>
+                        <span class="d-none d-sm-inline" style="font-size: 14px;">Theo Masoko</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Sign out</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
@@ -258,1081 +511,954 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-md-2 sidebar p-0">
-                <div class="p-3">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#dashboard" data-bs-toggle="tab">
-                                <i class="fas fa-tachometer-alt"></i> Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#newRequest" data-bs-toggle="tab">
-                                <i class="fas fa-plus-circle"></i> New Request
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#myRequests" data-bs-toggle="tab">
-                                <i class="fas fa-list"></i> My Requests
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#approvals" data-bs-toggle="tab">
-                                <i class="fas fa-check-circle"></i> Approvals
-                                <span class="badge bg-danger rounded-pill float-end">4</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#rfq" data-bs-toggle="tab">
-                                <i class="fas fa-file-contract"></i> RFQ Management
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#vendors" data-bs-toggle="tab">
-                                <i class="fas fa-building"></i> Vendors
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#reports" data-bs-toggle="tab">
-                                <i class="fas fa-chart-bar"></i> Reports
-                            </a>
-                        </li>
-                        <li class="nav-item mt-3">
-                            <hr>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#settings" data-bs-toggle="tab">
-                                <i class="fas fa-cog"></i> Settings
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#help" data-bs-toggle="tab">
-                                <i class="fas fa-question-circle"></i> Help
-                            </a>
-                        </li>
-                    </ul>
+            <div class="col-lg-2 d-none d-lg-block powerapps-sidebar p-0">
+                <div class="pt-2">
+                    <div class="powerapps-sidebar-item active">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </div>
+                    <div class="powerapps-sidebar-item">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>New Request</span>
+                    </div>
+                    <div class="powerapps-sidebar-item">
+                        <i class="fas fa-list-ul"></i>
+                        <span>My Requests</span>
+                    </div>
+                    <div class="powerapps-sidebar-item user-only">
+                        <i class="fas fa-history"></i>
+                        <span>Request History</span>
+                    </div>
+                    <div class="powerapps-sidebar-item management-only">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Approvals</span>
+                    </div>
+                    <div class="powerapps-sidebar-item management-only">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>RFQ Management</span>
+                    </div>
+                    <div class="powerapps-sidebar-item management-only">
+                        <i class="fas fa-building"></i>
+                        <span>Vendor Management</span>
+                    </div>
+                    <div class="powerapps-sidebar-item management-only">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reports & Analytics</span>
+                    </div>
+                    <div class="powerapps-sidebar-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Main Content -->
-            <div class="col-md-10 p-4">
-                <div class="tab-content">
-                    <!-- Dashboard Tab -->
-                    <div class="tab-pane fade show active" id="dashboard">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="mb-0 absa-text-primary">Procurement Dashboard</h2>
+            <div class="col-lg-10 py-3">
+                <!-- User View Content -->
+                <div class="user-view">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0" style="font-weight: 600;">My Procurement Dashboard</h5>
+                        <button class="powerapps-btn powerapps-btn-primary">
+                            <i class="fas fa-plus me-1"></i>New Request
+                        </button>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="powerapps-card">
+                                <div class="card-body p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-muted" style="font-size: 13px;">Pending Approval</div>
+                                            <div style="font-size: 22px; font-weight: 600; color: var(--absa-red);">3</div>
+                                        </div>
+                                        <div class="bg-light rounded p-2" style="color: var(--absa-red);">
+                                            <i class="fas fa-clock"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="powerapps-card">
+                                <div class="card-body p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-muted" style="font-size: 13px;">Approved This Month</div>
+                                            <div style="font-size: 22px; font-weight: 600; color: #28A745;">5</div>
+                                        </div>
+                                        <div class="bg-light rounded p-2" style="color: #28A745;">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="powerapps-card">
+                                <div class="card-body p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-muted" style="font-size: 13px;">Avg. Approval Time</div>
+                                            <div style="font-size: 22px; font-weight: 600;">2.8</div>
+                                        </div>
+                                        <div class="bg-light rounded p-2">
+                                            <i class="fas fa-stopwatch"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="powerapps-card">
+                                <div class="card-body p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-muted" style="font-size: 13px;">Total Spend</div>
+                                            <div style="font-size: 22px; font-weight: 600;">BWP 45,200</div>
+                                        </div>
+                                        <div class="bg-light rounded p-2">
+                                            <i class="fas fa-money-bill-wave"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="powerapps-card mb-3">
+                        <div class="powerapps-card-header d-flex justify-content-between align-items-center">
+                            <span>My Recent Requests</span>
                             <div>
-                                <button class="btn absa-btn-primary me-2">
-                                    <i class="fas fa-plus me-1"></i> New Request
-                                </button>
-                                <button class="btn btn-light">
+                                <button class="powerapps-btn powerapps-btn-outline btn-sm me-1">
                                     <i class="fas fa-filter me-1"></i> Filter
                                 </button>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-md-3">
-                                <div class="dashboard-stat">
-                                    <div class="stat-value">24</div>
-                                    <div class="stat-label">Pending Requests</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="dashboard-stat">
-                                    <div class="stat-value">156</div>
-                                    <div class="stat-label">Approved This Month</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="dashboard-stat">
-                                    <div class="stat-value">R 2.4M</div>
-                                    <div class="stat-label">Total Spend</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="dashboard-stat">
-                                    <div class="stat-value">2.3 days</div>
-                                    <div class="stat-label">Avg. Approval Time</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="card mb-4">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <span>Recent Requests</span>
-                                        <a href="#" class="btn btn-sm btn-light">View All</a>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Request ID</th>
-                                                        <th>Item</th>
-                                                        <th>Requested By</th>
-                                                        <th>Date</th>
-                                                        <th>Amount</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>IT-2023-078</td>
-                                                        <td>Dell Laptops (x10)</td>
-                                                        <td>Kagiso Molefe</td>
-                                                        <td>15 Jun 2023</td>
-                                                        <td>P 85,200</td>
-                                                        <td><span class="status-badge status-pending">Pending</span></td>
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-primary">View</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>IT-2023-077</td>
-                                                        <td>Cisco Network Switches</td>
-                                                        <td>Lebo Modise</td>
-                                                        <td>14 Jun 2023</td>
-                                                        <td>P 120,500</td>
-                                                        <td><span class="status-badge status-approved">Approved</span></td>
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-primary">View</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>IT-2023-076</td>
-                                                        <td>Microsoft 365 Licenses</td>
-                                                        <td>Tshepo Nkwe</td>
-                                                        <td>13 Jun 2023</td>
-                                                        <td>P 45,780</td>
-                                                        <td><span class="status-badge status-closed">Closed</span></td>
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-primary">View</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>IT-2023-075</td>
-                                                        <td>VMware Server Licenses</td>
-                                                        <td>Amantle Kgosi</td>
-                                                        <td>12 Jun 2023</td>
-                                                        <td>P 62,000</td>
-                                                        <td><span class="status-badge status-rejected">Rejected</span></td>
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-primary">View</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>IT-2023-074</td>
-                                                        <td>Video Conferencing Equipment</td>
-                                                        <td>Onalenna Sebele</td>
-                                                        <td>10 Jun 2023</td>
-                                                        <td>P 75,300</td>
-                                                        <td><span class="status-badge status-approved">Approved</span></td>
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-primary">View</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>IT-2023-073</td>
-                                                        <td>Cybersecurity Training</td>
-                                                        <td>Boitumelo Phiri</td>
-                                                        <td>08 Jun 2023</td>
-                                                        <td>P 28,500</td>
-                                                        <td><span class="status-badge status-approved">Approved</span></td>
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-primary">View</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>IT-2023-072</td>
-                                                        <td>Data Center UPS</td>
-                                                        <td>Thato Motsumi</td>
-                                                        <td>05 Jun 2023</td>
-                                                        <td>P 185,000</td>
-                                                        <td><span class="status-badge status-pending">Pending</span></td>
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-primary">View</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>IT-2023-071</td>
-                                                        <td>Cloud Storage Expansion</td>
-                                                        <td>Karabo Mothibi</td>
-                                                        <td>03 Jun 2023</td>
-                                                        <td>P 42,300</td>
-                                                        <td><span class="status-badge status-closed">Closed</span></td>
-                                                        <td>
-                                                            <button class="btn btn-sm btn-outline-primary">View</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        Approval Status
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span>Pending</span>
-                                                <span>24</span>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width: 25%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span>Approved</span>
-                                                <span>156</span>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-success" style="width: 65%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span>Rejected</span>
-                                                <span>12</span>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-danger" style="width: 5%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span>Closed</span>
-                                                <span>98</span>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-secondary" style="width: 40%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-header">
-                                        Top Vendors
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span>Office Solutions Ltd</span>
-                                                <span>R 450,200</span>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width: 75%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span>Tech Africa</span>
-                                                <span>R 320,500</span>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width: 55%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span>Stationery World</span>
-                                                <span>R 180,750</span>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width: 35%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span>CleanCo Services</span>
-                                                <span>R 120,300</span>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width: 25%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- New Request Tab -->
-                    <div class="tab-pane fade" id="newRequest">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="mb-0 absa-text-primary">New Procurement Request</h2>
-                            <div>
-                                <button class="btn btn-light me-2">
-                                    <i class="fas fa-save me-1"></i> Save Draft
-                                </button>
-                                <button class="btn absa-btn-secondary">
-                                    <i class="fas fa-times me-1"></i> Cancel
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                Request Details
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label for="requestType" class="form-label">Request Type</label>
-                                            <select class="form-select" id="requestType">
-                                                <option selected disabled>Select request type</option>
-                                                <option>Office Supplies</option>
-                                                <option>IT Equipment</option>
-                                                <option>Furniture</option>
-                                                <option>Software</option>
-                                                <option>Services</option>
-                                                <option>Other</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="department" class="form-label">Department</label>
-                                            <select class="form-select" id="department">
-                                                <option selected disabled>Select department</option>
-                                                <option>IT</option>
-                                                <option>Finance</option>
-                                                <option>HR</option>
-                                                <option>Operations</option>
-                                                <option>Marketing</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="itemDescription" class="form-label">Item/Service Description</label>
-                                        <textarea class="form-control" id="itemDescription" rows="3"></textarea>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-md-4">
-                                            <label for="quantity" class="form-label">Quantity</label>
-                                            <input type="number" class="form-control" id="quantity" min="1">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="estimatedCost" class="form-label">Estimated Cost (P)</label>
-                                            <input type="number" class="form-control" id="estimatedCost" min="0" step="0.01">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="requiredDate" class="form-label">Required By</label>
-                                            <input type="date" class="form-control" id="requiredDate">
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="justification" class="form-label">Justification</label>
-                                        <textarea class="form-control" id="justification" rows="3"></textarea>
-                                    </div>
-
-                                    <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="rfqRequired">
-                                        <label class="form-check-label" for="rfqRequired">RFQ Required (Request for Quotation)</label>
-                                    </div>
-
-                                    <div class="mb-3" id="vendorSelection" style="display: none;">
-                                        <label class="form-label">Preferred Vendors (Select at least 3 for RFQ)</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="vendor1">
-                                            <label class="form-check-label" for="vendor1">Office Solutions Ltd</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="vendor2">
-                                            <label class="form-check-label" for="vendor2">Tech Africa</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="vendor3">
-                                            <label class="form-check-label" for="vendor3">Stationery World</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="vendor4">
-                                            <label class="form-check-label" for="vendor4">CleanCo Services</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="attachments" class="form-label">Attachments (Quotes, Specs, etc.)</label>
-                                        <input class="form-control" type="file" id="attachments" multiple>
-                                    </div>
-
-                                    <div class="d-flex justify-content-end">
-                                        <button type="submit" class="btn absa-btn-primary">
-                                            <i class="fas fa-paper-plane me-1"></i> Submit Request
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- My Requests Tab -->
-                    <div class="tab-pane fade" id="myRequests">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="mb-0 absa-text-primary">My Requests</h2>
-                            <div>
-                                <button class="btn absa-btn-primary me-2">
-                                    <i class="fas fa-plus me-1"></i> New Request
-                                </button>
-                                <button class="btn btn-light">
-                                    <i class="fas fa-filter me-1"></i> Filter
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <div>
-                                    <span class="me-3">Showing: <strong>All Requests</strong></span>
-                                    <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-outline-secondary active">All</button>
-                                        <button class="btn btn-outline-secondary">Pending</button>
-                                        <button class="btn btn-outline-secondary">Approved</button>
-                                        <button class="btn btn-outline-secondary">Rejected</button>
-                                        <button class="btn btn-outline-secondary">Closed</button>
-                                    </div>
-                                </div>
-                                <div class="input-group" style="width: 250px;">
-                                    <input type="text" class="form-control form-control-sm" placeholder="Search requests...">
-                                    <button class="btn btn-sm btn-outline-secondary" type="button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Request ID</th>
-                                                <th>Item</th>
-                                                <th>Type</th>
-                                                <th>Date</th>
-                                                <th>Amount</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>PR-2023-078</td>
-                                                <td>Office Chairs</td>
-                                                <td>Furniture</td>
-                                                <td>15 Jun 2023</td>
-                                                <td>R 12,450</td>
-                                                <td><span class="status-badge status-pending">Pending</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>PR-2023-072</td>
-                                                <td>Projector</td>
-                                                <td>IT Equipment</td>
-                                                <td>08 Jun 2023</td>
-                                                <td>R 8,500</td>
-                                                <td><span class="status-badge status-approved">Approved</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>PR-2023-068</td>
-                                                <td>Team Lunch</td>
-                                                <td>Services</td>
-                                                <td>02 Jun 2023</td>
-                                                <td>R 3,200</td>
-                                                <td><span class="status-badge status-closed">Closed</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>PR-2023-065</td>
-                                                <td>Marketing Brochures</td>
-                                                <td>Services</td>
-                                                <td>28 May 2023</td>
-                                                <td>R 15,000</td>
-                                                <td><span class="status-badge status-rejected">Rejected</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>PR-2023-059</td>
-                                                <td>Software License</td>
-                                                <td>Software</td>
-                                                <td>20 May 2023</td>
-                                                <td>R 24,000</td>
-                                                <td><span class="status-badge status-closed">Closed</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <nav aria-label="Page navigation" class="mt-4">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Approvals Tab -->
-                    <div class="tab-pane fade" id="approvals">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="mb-0 absa-text-primary">Pending Approvals</h2>
-                            <div>
-                                <button class="btn btn-light">
-                                    <i class="fas fa-filter me-1"></i> Filter
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                Requests Awaiting Your Approval
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Request ID</th>
-                                                <th>Item</th>
-                                                <th>Requested By</th>
-                                                <th>Department</th>
-                                                <th>Date</th>
-                                                <th>Amount</th>
-                                                <th>Days Pending</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>PR-2023-078</td>
-                                                <td>Office Chairs</td>
-                                                <td>Sarah Johnson</td>
-                                                <td>HR</td>
-                                                <td>15 Jun 2023</td>
-                                                <td>R 12,450</td>
-                                                <td>2</td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-success me-1">Approve</button>
-                                                    <button class="btn btn-sm btn-danger">Reject</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>PR-2023-077</td>
-                                                <td>Laptops (x5)</td>
-                                                <td>Michael Brown</td>
-                                                <td>IT</td>
-                                                <td>14 Jun 2023</td>
-                                                <td>R 85,200</td>
-                                                <td>3</td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-success me-1">Approve</button>
-                                                    <button class="btn btn-sm btn-danger">Reject</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>PR-2023-075</td>
-                                                <td>Software License</td>
-                                                <td>David Wilson</td>
-                                                <td>Finance</td>
-                                                <td>12 Jun 2023</td>
-                                                <td>R 45,000</td>
-                                                <td>5</td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-success me-1">Approve</button>
-                                                    <button class="btn btn-sm btn-danger">Reject</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                Approval History
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Request ID</th>
-                                                <th>Item</th>
-                                                <th>Requested By</th>
-                                                <th>Decision</th>
-                                                <th>Date</th>
-                                                <th>Comments</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>PR-2023-072</td>
-                                                <td>Projector</td>
-                                                <td>Lisa Williams</td>
-                                                <td><span class="status-badge status-approved">Approved</span></td>
-                                                <td>10 Jun 2023</td>
-                                                <td>Within budget</td>
-                                            </tr>
-                                            <tr>
-                                                <td>PR-2023-068</td>
-                                                <td>Team Lunch</td>
-                                                <td>Emma Davis</td>
-                                                <td><span class="status-badge status-approved">Approved</span></td>
-                                                <td>05 Jun 2023</td>
-                                                <td>Team building activity</td>
-                                            </tr>
-                                            <tr>
-                                                <td>PR-2023-065</td>
-                                                <td>Marketing Brochures</td>
-                                                <td>Robert Smith</td>
-                                                <td><span class="status-badge status-rejected">Rejected</span></td>
-                                                <td>30 May 2023</td>
-                                                <td>Exceeds department budget</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- RFQ Management Tab -->
-                    <div class="tab-pane fade" id="rfq">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="mb-0 absa-text-primary">RFQ Management</h2>
-                            <div>
-                                <button class="btn btn-light">
-                                    <i class="fas fa-filter me-1"></i> Filter
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                Open RFQs
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>RFQ ID</th>
-                                                <th>Request ID</th>
-                                                <th>Item/Service</th>
-                                                <th>Requested By</th>
-                                                <th>Vendors Invited</th>
-                                                <th>Quotes Received</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>RFQ-2023-025</td>
-                                                <td>PR-2023-078</td>
-                                                <td>Office Chairs</td>
-                                                <td>Sarah Johnson</td>
-                                                <td>3</td>
-                                                <td>1</td>
-                                                <td><span class="status-badge status-pending">Open</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">Manage</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>RFQ-2023-024</td>
-                                                <td>PR-2023-076</td>
-                                                <td>Stationery</td>
-                                                <td>Lisa Williams</td>
-                                                <td>4</td>
-                                                <td>3</td>
-                                                <td><span class="status-badge status-pending">Quotes Received</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">Compare</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                RFQ Comparison - RFQ-2023-024 (Stationery)
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Vendor</th>
-                                                <th>Price (R)</th>
-                                                <th>Delivery Time</th>
-                                                <th>Payment Terms</th>
-                                                <th>Rating</th>
-                                                <th>Select</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Office Solutions Ltd</td>
-                                                <td>3,780</td>
-                                                <td>3 days</td>
-                                                <td>30 days</td>
-                                                <td>
-                                                    <i class="fas fa-star text-warning"></i>
-                                                    <i class="fas fa-star text-warning"></i>
-                                                    <i class="fas fa-star text-warning"></i>
-                                                    <i class="fas fa-star text-warning"></i>
-                                                    <i class="fas fa-star-half-alt text-warning"></i>
-                                                </td>
-                                                <td>
-                                                    <div class="form-check d-flex justify-content-center">
-                                                        <input class="form-check-input" type="radio" name="selectVendor" id="vendor1" checked>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Stationery World</td>
-                                                <td>3,650</td>
-                                                <td>5 days</td>
-                                                <td>14 days</td>
-                                                <td>
-                                                    <i class="fas fa-star text-warning"></i>
-                                                    <i class="fas fa-star text-warning"></i>
-                                                    <i class="fas fa-star text-warning"></i>
-                                                    <i class="fas fa-star text-warning"></i>
-                                                    <i class="far fa-star text-warning"></i>
-                                                </td>
-                                                <td>
-                                                    <div class="form-check d-flex justify-content-center">
-                                                        <input class="form-check-input" type="radio" name="selectVendor" id="vendor2">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Quick Supplies</td>
-                                                <td>4,200</td>
-                                                <td>2 days</td>
-                                                <td>COD</td>
-                                                <td>
-                                                    <i class="fas fa-star text-warning"></i>
-                                                    <i class="fas fa-star text-warning"></i>
-                                                    <i class="fas fa-star text-warning"></i>
-                                                    <i class="far fa-star text-warning"></i>
-                                                    <i class="far fa-star text-warning"></i>
-                                                </td>
-                                                <td>
-                                                    <div class="form-check d-flex justify-content-center">
-                                                        <input class="form-check-input" type="radio" name="selectVendor" id="vendor3">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div class="d-flex justify-content-between mt-4">
-                                    <button class="btn btn-light">
-                                        <i class="fas fa-download me-1"></i> Download All Quotes
-                                    </button>
-                                    <div>
-                                        <button class="btn btn-outline-secondary me-2">
-                                            <i class="fas fa-times me-1"></i> Cancel
-                                        </button>
-                                        <button class="btn absa-btn-primary">
-                                            <i class="fas fa-check me-1"></i> Award to Selected Vendor
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Vendors Tab -->
-                    <div class="tab-pane fade" id="vendors">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="mb-0 absa-text-primary">Vendor Management</h2>
-                            <div>
-                                <button class="btn absa-btn-primary me-2">
-                                    <i class="fas fa-plus me-1"></i> Add Vendor
-                                </button>
-                                <button class="btn btn-light">
-                                    <i class="fas fa-filter me-1"></i> Filter
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                Approved Vendors
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Vendor ID</th>
-                                                <th>Vendor Name</th>
-                                                <th>Category</th>
-                                                <th>Contact Person</th>
-                                                <th>Email</th>
-                                                <th>Total Spend (R)</th>
-                                                <th>Last Order</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>V-0012</td>
-                                                <td>Office Solutions Ltd</td>
-                                                <td>Office Supplies</td>
-                                                <td>James Peterson</td>
-                                                <td>james@officesol.co.za</td>
-                                                <td>450,200</td>
-                                                <td>10 Jun 2023</td>
-                                                <td><span class="status-badge status-approved">Approved</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>V-0010</td>
-                                                <td>Tech Africa</td>
-                                                <td>IT Equipment</td>
-                                                <td>Sarah Johnson</td>
-                                                <td>sarah@techafrica.co.za</td>
-                                                <td>320,500</td>
-                                                <td>08 Jun 2023</td>
-                                                <td><span class="status-badge status-approved">Approved</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>V-0008</td>
-                                                <td>Stationery World</td>
-                                                <td>Office Supplies</td>
-                                                <td>Michael Brown</td>
-                                                <td>michael@statworld.co.za</td>
-                                                <td>180,750</td>
-                                                <td>05 Jun 2023</td>
-                                                <td><span class="status-badge status-approved">Approved</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>V-0005</td>
-                                                <td>CleanCo Services</td>
-                                                <td>Services</td>
-                                                <td>Lisa Williams</td>
-                                                <td>lisa@cleanco.co.za</td>
-                                                <td>120,300</td>
-                                                <td>01 Jun 2023</td>
-                                                <td><span class="status-badge status-approved">Approved</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                Vendor Performance
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h5>Top Vendors by Spend</h5>
-                                        <canvas id="vendorSpendChart" height="300"></canvas>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5>Vendor Ratings</h5>
-                                        <canvas id="vendorRatingChart" height="300"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Reports Tab -->
-                    <div class="tab-pane fade" id="reports">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="mb-0 absa-text-primary">Reports & Analytics</h2>
-                            <div>
-                                <button class="btn absa-btn-primary me-2">
+                                <button class="powerapps-btn powerapps-btn-outline btn-sm">
                                     <i class="fas fa-download me-1"></i> Export
                                 </button>
-                                <button class="btn btn-light">
-                                    <i class="fas fa-calendar me-1"></i> Date Range
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table powerapps-table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Request ID</th>
+                                            <th>Description</th>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>PR-2023-0456</td>
+                                            <td>Laptop - Dell XPS 15</td>
+                                            <td>15 Jun 2023</td>
+                                            <td>BWP 12,500</td>
+                                            <td>
+                                                <span class="powerapps-status-indicator indicator-approved"></span>
+                                                <span class="powerapps-badge badge-approved">Approved</span>
+                                            </td>
+                                            <td>
+                                                <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>PR-2023-0457</td>
+                                            <td>Office Furniture</td>
+                                            <td>16 Jun 2023</td>
+                                            <td>BWP 45,200</td>
+                                            <td>
+                                                <span class="powerapps-status-indicator indicator-pending"></span>
+                                                <span class="powerapps-badge badge-pending">Pending</span>
+                                            </td>
+                                            <td>
+                                                <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>PR-2023-0458</td>
+                                            <td>Software License - Adobe CC</td>
+                                            <td>17 Jun 2023</td>
+                                            <td>BWP 8,400</td>
+                                            <td>
+                                                <span class="powerapps-status-indicator indicator-rfq"></span>
+                                                <span class="powerapps-badge badge-rfq">RFQ Required</span>
+                                            </td>
+                                            <td>
+                                                <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>PR-2023-0459</td>
+                                            <td>Training Workshop</td>
+                                            <td>18 Jun 2023</td>
+                                            <td>BWP 32,000</td>
+                                            <td>
+                                                <span class="powerapps-status-indicator indicator-rejected"></span>
+                                                <span class="powerapps-badge badge-rejected">Rejected</span>
+                                            </td>
+                                            <td>
+                                                <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white d-flex justify-content-between align-items-center py-2">
+                            <div class="text-muted" style="font-size: 13px;">
+                                Showing 1 to 4 of 12 entries
+                            </div>
+                            <div>
+                                <button class="powerapps-btn powerapps-btn-outline btn-sm me-1" disabled>
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                    <i class="fas fa-chevron-right"></i>
                                 </button>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                Procurement Overview
+                    <!-- New Request Form (Hidden by default) -->
+                    <div class="powerapps-form mb-3" style="display: none;" id="newRequestForm">
+                        <h6 class="powerapps-form-title">New Procurement Request</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="powerapps-form-group">
+                                    <label class="powerapps-form-label powerapps-required-field">Request Type</label>
+                                    <select class="form-select powerapps-form-control powerapps-dropdown">
+                                        <option selected disabled>Select request type</option>
+                                        <option>Capital Expenditure (CapEx)</option>
+                                        <option>Operational Expenditure (OpEx)</option>
+                                        <option>Services</option>
+                                        <option>Software</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h5>Spend by Department</h5>
-                                        <canvas id="departmentSpendChart" height="300"></canvas>
+                            <div class="col-md-6">
+                                <div class="powerapps-form-group">
+                                    <label class="powerapps-form-label powerapps-required-field">Department</label>
+                                    <select class="form-select powerapps-form-control powerapps-dropdown">
+                                        <option selected disabled>Select department</option>
+                                        <option>IT</option>
+                                        <option>Finance</option>
+                                        <option>Operations</option>
+                                        <option>HR</option>
+                                        <option>Marketing</option>
+                                        <option>Facilities</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="powerapps-form-group">
+                            <label class="powerapps-form-label powerapps-required-field">Item/Service Description</label>
+                            <input type="text" class="form-control powerapps-form-control" placeholder="Enter description of what you're requesting">
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="powerapps-form-group">
+                                    <label class="powerapps-form-label powerapps-required-field">Estimated Amount (BWP)</label>
+                                    <input type="number" class="form-control powerapps-form-control" placeholder="Enter estimated amount">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="powerapps-form-group">
+                                    <label class="powerapps-form-label">Preferred Vendor (if known)</label>
+                                    <input type="text" class="form-control powerapps-form-control" placeholder="Enter vendor name">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="powerapps-form-group">
+                            <label class="powerapps-form-label powerapps-required-field">Business Justification</label>
+                            <textarea class="form-control powerapps-form-control" rows="3" placeholder="Explain why this request is needed"></textarea>
+                        </div>
+                        
+                        <div class="powerapps-form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rfqRequired">
+                                <label class="form-check-label" for="rfqRequired" style="font-size: 13px;">
+                                    RFQ Required (Request for Quotation)
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="powerapps-form-group">
+                            <label class="powerapps-form-label">Supporting Documents</label>
+                            <div class="border rounded p-3 text-center" style="background-color: var(--powerapps-form-bg);">
+                                <i class="fas fa-cloud-upload-alt fs-4 text-muted mb-2"></i>
+                                <p class="text-muted mb-2" style="font-size: 13px;">Drag and drop files here or click to browse</p>
+                                <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                    <i class="fas fa-folder-open me-1"></i>Browse Files
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="powerapps-progress-tracker mt-4 mb-3">
+                            <div class="powerapps-progress-step completed">
+                                <div class="powerapps-step-number">1</div>
+                                <div class="powerapps-step-label">Details</div>
+                            </div>
+                            <div class="powerapps-progress-step active">
+                                <div class="powerapps-step-number">2</div>
+                                <div class="powerapps-step-label">Review</div>
+                            </div>
+                            <div class="powerapps-progress-step pending">
+                                <div class="powerapps-step-number">3</div>
+                                <div class="powerapps-step-label">Submit</div>
+                            </div>
+                            <div class="powerapps-progress-bar" style="width: 50%;"></div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-end">
+                            <button class="powerapps-btn powerapps-btn-outline me-2" id="cancelRequestBtn">
+                                Cancel
+                            </button>
+                            <button class="powerapps-btn powerapps-btn-primary">
+                                Submit for Approval
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Request Status Timeline -->
+                    <div class="powerapps-card">
+                        <div class="powerapps-card-header">
+                            Request Status Timeline
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <select class="form-select powerapps-form-control powerapps-dropdown me-2" style="width: 200px;">
+                                    <option selected>PR-2023-0457</option>
+                                    <option>PR-2023-0456</option>
+                                    <option>PR-2023-0458</option>
+                                    <option>PR-2023-0459</option>
+                                </select>
+                                <span class="powerapps-badge badge-pending">Pending Approval</span>
+                            </div>
+                            
+                            <div class="powerapps-progress-tracker">
+                                <div class="powerapps-progress-step completed">
+                                    <div class="powerapps-step-number"><i class="fas fa-check"></i></div>
+                                    <div class="powerapps-step-label">Submitted</div>
+                                </div>
+                                <div class="powerapps-progress-step completed">
+                                    <div class="powerapps-step-number"><i class="fas fa-check"></i></div>
+                                    <div class="powerapps-step-label">Department Review</div>
+                                </div>
+                                <div class="powerapps-progress-step active">
+                                    <div class="powerapps-step-number">3</div>
+                                    <div class="powerapps-step-label">Finance Approval</div>
+                                </div>
+                                <div class="powerapps-progress-step pending">
+                                    <div class="powerapps-step-number">4</div>
+                                    <div class="powerapps-step-label">Procurement</div>
+                                </div>
+                                <div class="powerapps-progress-step pending">
+                                    <div class="powerapps-step-number">5</div>
+                                    <div class="powerapps-step-label">Completed</div>
+                                </div>
+                                <div class="powerapps-progress-bar" style="width: 40%;"></div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <div class="d-flex align-items-start mb-3">
+                                    <div class="powerapps-avatar me-3">SM</div>
+                                    <div>
+                                        <div class="d-flex align-items-center mb-1">
+                                            <strong style="font-size: 13px;">Sarah M.</strong>
+                                            <span class="text-muted ms-2" style="font-size: 12px;">2 days ago</span>
+                                        </div>
+                                        <p style="font-size: 13px;">Request has been reviewed by department head and forwarded to finance for budget approval.</p>
                                     </div>
-                                    <div class="col-md-6">
-                                        <h5>Spend by Category</h5>
-                                        <canvas id="categorySpendChart" height="300"></canvas>
+                                </div>
+                                
+                                <div class="d-flex align-items-start">
+                                    <div class="powerapps-avatar me-3">JD</div>
+                                    <div>
+                                        <div class="d-flex align-items-center mb-1">
+                                            <strong style="font-size: 13px;">You</strong>
+                                            <span class="text-muted ms-2" style="font-size: 12px;">3 days ago</span>
+                                        </div>
+                                        <p style="font-size: 13px;">Submitted request for office furniture including 5 desks and 10 chairs for new hires.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="card">
-                            <div class="card-header">
-                                Approval Process Metrics
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h5>Average Approval Time</h5>
-                                        <canvas id="approvalTimeChart" height="300"></canvas>
+                <!-- Management View Content -->
+                <div class="management-view" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0" style="font-weight: 600;">Procurement Management Dashboard</h5>
+                        <div class="d-flex">
+                            <button class="powerapps-btn powerapps-btn-outline me-2">
+                                <i class="fas fa-download me-1"></i> Export
+                            </button>
+                            <button class="powerapps-btn powerapps-btn-secondary">
+                                <i class="fas fa-cog me-1"></i> Settings
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Management Stats -->
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="powerapps-card">
+                                <div class="card-body p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-muted" style="font-size: 13px;">Pending Approvals</div>
+                                            <div style="font-size: 22px; font-weight: 600; color: var(--absa-red);">14</div>
+                                        </div>
+                                        <div class="bg-light rounded p-2" style="color: var(--absa-red);">
+                                            <i class="fas fa-clock"></i>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <h5>Request Status Distribution</h5>
-                                        <canvas id="statusDistributionChart" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="powerapps-card">
+                                <div class="card-body p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-muted" style="font-size: 13px;">Monthly Spend</div>
+                                            <div style="font-size: 22px; font-weight: 600;">BWP 245K</div>
+                                        </div>
+                                        <div class="bg-light rounded p-2">
+                                            <i class="fas fa-money-bill-wave"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="powerapps-card">
+                                <div class="card-body p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-muted" style="font-size: 13px;">Avg. Approval Time</div>
+                                            <div style="font-size: 22px; font-weight: 600;">3.2</div>
+                                        </div>
+                                        <div class="bg-light rounded p-2">
+                                            <i class="fas fa-stopwatch"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="powerapps-card">
+                                <div class="card-body p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="text-muted" style="font-size: 13px;">Open RFQs</div>
+                                            <div style="font-size: 22px; font-weight: 600; color: #0D6EFD;">7</div>
+                                        </div>
+                                        <div class="bg-light rounded p-2" style="color: #0D6EFD;">
+                                            <i class="fas fa-file-invoice-dollar"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Settings Tab -->
-                    <div class="tab-pane fade" id="settings">
-                        <h2 class="mb-4 absa-text-primary">Settings</h2>
-                        <div class="card">
-                            <div class="card-header">
-                                User Preferences
+                    <!-- Pending Approvals -->
+                    <div class="powerapps-card mb-3">
+                        <div class="powerapps-card-header d-flex justify-content-between align-items-center">
+                            <span>Pending Approvals</span>
+                            <div>
+                                <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                    <i class="fas fa-filter me-1"></i> Filter
+                                </button>
                             </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="notificationPref" class="form-label">Notification Preferences</label>
-                                        <select class="form-select" id="notificationPref">
-                                            <option>Email</option>
-                                            <option>Teams</option>
-                                            <option>Both</option>
-                                            <option>None</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="dailyDigest">
-                                        <label class="form-check-label" for="dailyDigest">Receive daily digest</label>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="timezone" class="form-label">Timezone</label>
-                                        <select class="form-select" id="timezone">
-                                            <option>Africa/Johannesburg (SAST)</option>
-                                            <option>UTC</option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn absa-btn-primary">Save Preferences</button>
-                                </form>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table powerapps-table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 40px;"></th>
+                                            <th>Request ID</th>
+                                            <th>Description</th>
+                                            <th>Requested By</th>
+                                            <th>Department</th>
+                                            <th>Amount</th>
+                                            <th>Days Pending</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                </div>
+                                            </td>
+                                            <td>PR-2023-0461</td>
+                                            <td>Network Switches</td>
+                                            <td>Robert Taylor</td>
+                                            <td>IT</td>
+                                            <td>BWP 68,750</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="progress flex-grow-1 me-2" style="height: 6px;">
+                                                        <div class="progress-bar bg-warning" style="width: 80%"></div>
+                                                    </div>
+                                                    <span style="font-size: 12px;">4</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button class="powerapps-btn powerapps-btn-outline btn-sm me-1">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="powerapps-btn powerapps-btn-primary btn-sm me-1">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button class="powerapps-btn powerapps-btn-outline btn-sm" style="color: #DC3545;">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                </div>
+                                            </td>
+                                            <td>PR-2023-0457</td>
+                                            <td>Office Furniture</td>
+                                            <td>Michael Brown</td>
+                                            <td>Facilities</td>
+                                            <td>BWP 45,200</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="progress flex-grow-1 me-2" style="height: 6px;">
+                                                        <div class="progress-bar bg-warning" style="width: 60%"></div>
+                                                    </div>
+                                                    <span style="font-size: 12px;">3</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button class="powerapps-btn powerapps-btn-outline btn-sm me-1">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="powerapps-btn powerapps-btn-primary btn-sm me-1">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button class="powerapps-btn powerapps-btn-outline btn-sm" style="color: #DC3545;">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                </div>
+                                            </td>
+                                            <td>PR-2023-0462</td>
+                                            <td>Marketing Campaign</td>
+                                            <td>Lisa Chen</td>
+                                            <td>Marketing</td>
+                                            <td>BWP 120,000</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="progress flex-grow-1 me-2" style="height: 6px;">
+                                                        <div class="progress-bar bg-warning" style="width: 40%"></div>
+                                                    </div>
+                                                    <span style="font-size: 12px;">2</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button class="powerapps-btn powerapps-btn-outline btn-sm me-1">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="powerapps-btn powerapps-btn-primary btn-sm me-1">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button class="powerapps-btn powerapps-btn-outline btn-sm" style="color: #DC3545;">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white d-flex justify-content-between align-items-center py-2">
+                            <button class="powerapps-btn powerapps-btn-primary btn-sm">
+                                <i class="fas fa-check-circle me-1"></i> Approve Selected
+                            </button>
+                            <div class="text-muted" style="font-size: 13px;">
+                                Showing 1 to 3 of 14 pending approvals
                             </div>
                         </div>
                     </div>
 
-                    <!-- Help Tab -->
-                    <div class="tab-pane fade" id="help">
-                        <h2 class="mb-4 absa-text-primary">Help & Support</h2>
-                        <div class="card">
-                            <div class="card-header">
-                                Frequently Asked Questions
-                            </div>
-                            <div class="card-body">
-                                <div class="accordion" id="helpAccordion">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-                                                How do I submit a new procurement request?
-                                            </button>
-                                        </h2>
-                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
-                                            <div class="accordion-body">
-                                                Navigate to the "New Request" tab and fill out all required fields. Be sure to provide a detailed description and justification for your request. Once submitted, the request will be routed to the appropriate approver based on the amount and department.
-                                            </div>
+                    <!-- Management Tabs -->
+                    <ul class="nav nav-tabs mb-3" id="managementTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="spend-tab" data-bs-toggle="tab" data-bs-target="#spend-tab-pane" type="button">Spend Analysis</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="vendors-tab" data-bs-toggle="tab" data-bs-target="#vendors-tab-pane" type="button">Vendor Performance</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="sla-tab" data-bs-toggle="tab" data-bs-target="#sla-tab-pane" type="button">Approval SLAs</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="managementTabsContent">
+                        <!-- Spend Analysis Tab -->
+                        <div class="tab-pane fade show active" id="spend-tab-pane" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="powerapps-card mb-3">
+                                        <div class="powerapps-card-header">
+                                            Monthly Spend by Department
                                         </div>
-                                    </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingTwo">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
-                                                When is an RFQ required?
-                                            </button>
-                                        </h2>
-                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
-                                            <div class="accordion-body">
-                                                An RFQ (Request for Quotation) is required for any purchase over R10,000 or when purchasing from a new vendor. The system will automatically prompt you to initiate an RFQ if these conditions are met.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingThree">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
-                                                How do I track the status of my request?
-                                            </button>
-                                        </h2>
-                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
-                                            <div class="accordion-body">
-                                                You can view all your requests and their current status in the "My Requests" tab. The system will also notify you via email or Teams when there are updates to your request status.
-                                            </div>
+                                        <div class="card-body">
+                                            <canvas id="spendByDeptChart" height="250"></canvas>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="powerapps-card mb-3">
+                                        <div class="powerapps-card-header">
+                                            Spend by Category
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="spendByCategoryChart" height="250"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="powerapps-card">
+                                <div class="powerapps-card-header d-flex justify-content-between align-items-center">
+                                    <span>Top Vendors by Spend</span>
+                                    <select class="form-select powerapps-form-control powerapps-dropdown" style="width: 150px;">
+                                        <option>Last 3 Months</option>
+                                        <option>Last 6 Months</option>
+                                        <option>This Year</option>
+                                        <option>Last Year</option>
+                                    </select>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table powerapps-table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Vendor</th>
+                                                    <th>Category</th>
+                                                    <th>Spend</th>
+                                                    <th>% of Total</th>
+                                                    <th>Last Order</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Tech Solutions Ltd</td>
+                                                    <td>IT Equipment</td>
+                                                    <td>BWP 245,780</td>
+                                                    <td>
+                                                        <div class="progress" style="height: 6px;">
+                                                            <div class="progress-bar bg-success" style="width: 65%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>12 Jun 2023</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Office World</td>
+                                                    <td>Furniture</td>
+                                                    <td>BWP 98,450</td>
+                                                    <td>
+                                                        <div class="progress" style="height: 6px;">
+                                                            <div class="progress-bar bg-primary" style="width: 26%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>5 Jun 2023</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>SoftServe Inc</td>
+                                                    <td>Software</td>
+                                                    <td>BWP 45,600</td>
+                                                    <td>
+                                                        <div class="progress" style="height: 6px;">
+                                                            <div class="progress-bar bg-info" style="width: 12%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>18 May 2023</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CleanPro</td>
+                                                    <td>Services</td>
+                                                    <td>BWP 32,500</td>
+                                                    <td>
+                                                        <div class="progress" style="height: 6px;">
+                                                            <div class="progress-bar bg-warning" style="width: 9%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>1 Jun 2023</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                <div class="mt-4">
-                                    <h5>Still need help?</h5>
-                                    <p>Contact the Procurement Support Team:</p>
-                                    <ul>
-                                        <li>Email: procurement.support@absa.africa</li>
-                                        <li>Phone: +27 11 350 4000 (Ext. 1234)</li>
-                                        <li>Teams Channel: #Procurement-Support</li>
-                                    </ul>
+                        <!-- Vendor Performance Tab -->
+                        <div class="tab-pane fade" id="vendors-tab-pane" role="tabpanel">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="powerapps-card h-100">
+                                        <div class="powerapps-card-header">
+                                            Vendor Rating Distribution
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="vendorRatingChart" height="250"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="powerapps-card h-100">
+                                        <div class="powerapps-card-header">
+                                            New Vendors Added
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="newVendorsChart" height="250"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="powerapps-card">
+                                <div class="powerapps-card-header d-flex justify-content-between align-items-center">
+                                    <span>Vendor Performance</span>
+                                    <div>
+                                        <button class="powerapps-btn powerapps-btn-primary btn-sm me-2">
+                                            <i class="fas fa-plus me-1"></i> Add Vendor
+                                        </button>
+                                        <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                            <i class="fas fa-filter me-1"></i> Filter
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table powerapps-table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Vendor Name</th>
+                                                    <th>Category</th>
+                                                    <th>Avg. Rating</th>
+                                                    <th>Total Spend</th>
+                                                    <th>Last Order</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Tech Solutions Ltd</td>
+                                                    <td>IT Equipment</td>
+                                                    <td>
+                                                        <div class="text-warning">
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star-half-alt"></i>
+                                                        </div>
+                                                    </td>
+                                                    <td>BWP 245,780</td>
+                                                    <td>12 Jun 2023</td>
+                                                    <td><span class="powerapps-badge badge-approved">Approved</span></td>
+                                                    <td>
+                                                        <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Office World</td>
+                                                    <td>Furniture</td>
+                                                    <td>
+                                                        <div class="text-warning">
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="far fa-star"></i>
+                                                        </div>
+                                                    </td>
+                                                    <td>BWP 98,450</td>
+                                                    <td>5 Jun 2023</td>
+                                                    <td><span class="powerapps-badge badge-approved">Approved</span></td>
+                                                    <td>
+                                                        <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>SoftServe Inc</td>
+                                                    <td>Software</td>
+                                                    <td>
+                                                        <div class="text-warning">
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                        </div>
+                                                    </td>
+                                                    <td>BWP 45,600</td>
+                                                    <td>18 May 2023</td>
+                                                    <td><span class="powerapps-badge badge-approved">Approved</span></td>
+                                                    <td>
+                                                        <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CleanPro</td>
+                                                    <td>Services</td>
+                                                    <td>
+                                                        <div class="text-warning">
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="far fa-star"></i>
+                                                            <i class="far fa-star"></i>
+                                                        </div>
+                                                    </td>
+                                                    <td>BWP 32,500</td>
+                                                    <td>1 Jun 2023</td>
+                                                    <td><span class="powerapps-badge badge-approved">Approved</span></td>
+                                                    <td>
+                                                        <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Approval SLAs Tab -->
+                        <div class="tab-pane fade" id="sla-tab-pane" role="tabpanel">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="powerapps-card h-100">
+                                        <div class="powerapps-card-header">
+                                            Approval Time by Department
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="approvalTimeChart" height="250"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="powerapps-card h-100">
+                                        <div class="powerapps-card-header">
+                                            SLA Compliance
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="slaComplianceChart" height="250"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="powerapps-card">
+                                <div class="powerapps-card-header d-flex justify-content-between align-items-center">
+                                    <span>Requests Exceeding SLA</span>
+                                    <select class="form-select powerapps-form-control powerapps-dropdown" style="width: 150px;">
+                                        <option>Last 30 Days</option>
+                                        <option>Last 60 Days</option>
+                                        <option>Last 90 Days</option>
+                                    </select>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table powerapps-table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Request ID</th>
+                                                    <th>Description</th>
+                                                    <th>Department</th>
+                                                    <th>Request Date</th>
+                                                    <th>Days Overdue</th>
+                                                    <th>Current Stage</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>PR-2023-0421</td>
+                                                    <td>Server Upgrade</td>
+                                                    <td>IT</td>
+                                                    <td>15 May 2023</td>
+                                                    <td><span class="powerapps-badge badge-rejected">8 days</span></td>
+                                                    <td>Finance Approval</td>
+                                                    <td>
+                                                        <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PR-2023-0425</td>
+                                                    <td>Marketing Materials</td>
+                                                    <td>Marketing</td>
+                                                    <td>18 May 2023</td>
+                                                    <td><span class="powerapps-badge badge-rejected">5 days</span></td>
+                                                    <td>Procurement</td>
+                                                    <td>
+                                                        <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PR-2023-0430</td>
+                                                    <td>Training Program</td>
+                                                    <td>HR</td>
+                                                    <td>22 May 2023</td>
+                                                    <td><span class="powerapps-badge badge-pending">3 days</span></td>
+                                                    <td>Department Review</td>
+                                                    <td>
+                                                        <button class="powerapps-btn powerapps-btn-outline btn-sm">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1342,272 +1468,321 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-light py-3 mt-4">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="mb-0 text-muted">© 2023 ABSA Bank Limited. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="mb-0 text-muted">Procurement Portal v2.1.0</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Custom JS -->
     <script>
-        // Show/hide vendor selection based on RFQ checkbox
-        document.getElementById('rfqRequired').addEventListener('change', function() {
-            document.getElementById('vendorSelection').style.display = this.checked ? 'block' : 'none';
-        });
-
-        // Initialize charts
         document.addEventListener('DOMContentLoaded', function() {
-            // Vendor Spend Chart
-            const vendorSpendCtx = document.getElementById('vendorSpendChart').getContext('2d');
-            new Chart(vendorSpendCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Office Solutions', 'Tech Africa', 'Stationery World', 'CleanCo', 'Quick Supplies'],
-                    datasets: [{
-                        label: 'Total Spend (R)',
-                        data: [450200, 320500, 180750, 120300, 85600],
-                        backgroundColor: [
-                            'rgba(0, 100, 170, 0.7)',
-                            'rgba(226, 0, 26, 0.7)',
-                            'rgba(255, 205, 0, 0.7)',
-                            'rgba(0, 51, 102, 0.7)',
-                            'rgba(108, 117, 125, 0.7)'
-                        ],
-                        borderColor: [
-                            'rgba(0, 100, 170, 1)',
-                            'rgba(226, 0, 26, 1)',
-                            'rgba(255, 205, 0, 1)',
-                            'rgba(0, 51, 102, 1)',
-                            'rgba(108, 117, 125, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
+            // View Toggle Functionality
+            const userViewBtn = document.querySelector('.user-view-btn');
+            const managementViewBtn = document.querySelector('.management-view-btn');
+            const userView = document.querySelector('.user-view');
+            const managementView = document.querySelector('.management-view');
+            
+            userViewBtn.addEventListener('click', function() {
+                this.classList.add('active');
+                managementViewBtn.classList.remove('active');
+                userView.style.display = 'block';
+                managementView.style.display = 'none';
+                document.body.classList.remove('management-view');
+            });
+            
+            managementViewBtn.addEventListener('click', function() {
+                this.classList.add('active');
+                userViewBtn.classList.remove('active');
+                userView.style.display = 'none';
+                managementView.style.display = 'block';
+                document.body.classList.add('management-view');
+            });
+            
+            // New Request Form Toggle
+            const newRequestBtn = document.querySelector('.powerapps-btn-primary');
+            const newRequestForm = document.getElementById('newRequestForm');
+            const cancelRequestBtn = document.getElementById('cancelRequestBtn');
+            
+            if (newRequestBtn && newRequestForm) {
+                newRequestBtn.addEventListener('click', function() {
+                    newRequestForm.style.display = 'block';
+                    window.scrollTo({
+                        top: newRequestForm.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                });
+                
+                cancelRequestBtn.addEventListener('click', function() {
+                    newRequestForm.style.display = 'none';
+                });
+            }
+            
+            // Initialize User View Charts
+            if (document.getElementById('departmentSpendChart')) {
+                new Chart(document.getElementById('departmentSpendChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['IT', 'Finance', 'Operations', 'HR', 'Marketing', 'Facilities'],
+                        datasets: [{
+                            label: 'Spend (BWP)',
+                            data: [125000, 85000, 68000, 42000, 78000, 56000],
+                            backgroundColor: 'rgba(228, 30, 38, 0.7)',
+                            borderColor: 'rgba(228, 30, 38, 1)',
+                            borderWidth: 1
+                        }]
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return 'R ' + value.toLocaleString();
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return 'BWP ' + value.toLocaleString();
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            });
-
-            // Vendor Rating Chart
-            const vendorRatingCtx = document.getElementById('vendorRatingChart').getContext('2d');
-            new Chart(vendorRatingCtx, {
-                type: 'radar',
-                data: {
-                    labels: ['Price', 'Quality', 'Delivery', 'Service', 'Communication'],
-                    datasets: [
-                        {
-                            label: 'Office Solutions',
-                            data: [4, 5, 4, 5, 4],
-                            backgroundColor: 'rgba(0, 100, 170, 0.2)',
-                            borderColor: 'rgba(0, 100, 170, 1)',
-                            pointBackgroundColor: 'rgba(0, 100, 170, 1)',
-                            pointBorderColor: '#fff',
-                            pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgba(0, 100, 170, 1)'
-                        },
-                        {
-                            label: 'Tech Africa',
-                            data: [3, 4, 5, 4, 3],
-                            backgroundColor: 'rgba(226, 0, 26, 0.2)',
-                            borderColor: 'rgba(226, 0, 26, 1)',
-                            pointBackgroundColor: 'rgba(226, 0, 26, 1)',
-                            pointBorderColor: '#fff',
-                            pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgba(226, 0, 26, 1)'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        r: {
-                            angleLines: {
-                                display: true
+                });
+            }
+            
+            if (document.getElementById('approvalTimeChart')) {
+                new Chart(document.getElementById('approvalTimeChart').getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Average Approval Time (Days)',
+                            data: [4.2, 3.8, 3.5, 3.1, 2.9, 3.2],
+                            fill: false,
+                            borderColor: 'rgba(228, 30, 38, 1)',
+                            backgroundColor: 'rgba(228, 30, 38, 0.1)',
+                            tension: 0.4,
+                            pointBackgroundColor: 'rgba(228, 30, 38, 1)',
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
                             },
-                            suggestedMin: 0,
-                            suggestedMax: 5
-                        }
-                    }
-                }
-            });
-
-            // Department Spend Chart
-            const deptSpendCtx = document.getElementById('departmentSpendChart').getContext('2d');
-            new Chart(deptSpendCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['IT', 'Finance', 'HR', 'Operations', 'Marketing'],
-                    datasets: [{
-                        data: [1200000, 850000, 650000, 450000, 300000],
-                        backgroundColor: [
-                            'rgba(0, 100, 170, 0.7)',
-                            'rgba(226, 0, 26, 0.7)',
-                            'rgba(255, 205, 0, 0.7)',
-                            'rgba(0, 51, 102, 0.7)',
-                            'rgba(108, 117, 125, 0.7)'
-                        ],
-                        borderColor: [
-                            'rgba(0, 100, 170, 1)',
-                            'rgba(226, 0, 26, 1)',
-                            'rgba(255, 205, 0, 1)',
-                            'rgba(0, 51, 102, 1)',
-                            'rgba(108, 117, 125, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || '';
-                                    if (label) {
-                                        label += ': ';
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.parsed.y.toFixed(1) + ' days';
                                     }
-                                    label += 'R ' + context.raw.toLocaleString();
-                                    return label;
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Days'
                                 }
                             }
                         }
                     }
-                }
-            });
-
-            // Category Spend Chart
-            const catSpendCtx = document.getElementById('categorySpendChart').getContext('2d');
-            new Chart(catSpendCtx, {
-                type: 'pie',
-                data: {
-                    labels: ['IT Equipment', 'Software', 'Office Supplies', 'Services', 'Furniture'],
-                    datasets: [{
-                        data: [1500000, 800000, 600000, 400000, 300000],
-                        backgroundColor: [
-                            'rgba(0, 100, 170, 0.7)',
-                            'rgba(226, 0, 26, 0.7)',
-                            'rgba(255, 205, 0, 0.7)',
-                            'rgba(0, 51, 102, 0.7)',
-                            'rgba(108, 117, 125, 0.7)'
-                        ],
-                        borderColor: [
-                            'rgba(0, 100, 170, 1)',
-                            'rgba(226, 0, 26, 1)',
-                            'rgba(255, 205, 0, 1)',
-                            'rgba(0, 51, 102, 1)',
-                            'rgba(108, 117, 125, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || '';
-                                    if (label) {
-                                        label += ': ';
+                });
+            }
+            
+            // Initialize Management View Charts
+            if (document.getElementById('spendByDeptChart')) {
+                new Chart(document.getElementById('spendByDeptChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [
+                            {
+                                label: 'IT',
+                                data: [45000, 38000, 42000, 48000, 52000, 55000],
+                                backgroundColor: 'rgba(228, 30, 38, 0.7)'
+                            },
+                            {
+                                label: 'Finance',
+                                data: [28000, 32000, 35000, 30000, 38000, 40000],
+                                backgroundColor: 'rgba(0, 102, 177, 0.7)'
+                            },
+                            {
+                                label: 'Marketing',
+                                data: [35000, 40000, 38000, 42000, 45000, 50000],
+                                backgroundColor: 'rgba(114, 46, 113, 0.7)'
+                            },
+                            {
+                                label: 'Operations',
+                                data: [22000, 25000, 28000, 30000, 32000, 35000],
+                                backgroundColor: 'rgba(0, 132, 118, 0.7)'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': BWP ' + context.raw.toLocaleString();
                                     }
-                                    label += 'R ' + context.raw.toLocaleString();
-                                    return label;
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return 'BWP ' + value.toLocaleString();
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            });
-
-            // Approval Time Chart
-            const approvalTimeCtx = document.getElementById('approvalTimeChart').getContext('2d');
-            new Chart(approvalTimeCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                    datasets: [{
-                        label: 'Average Approval Time (days)',
-                        data: [3.2, 2.8, 3.5, 2.5, 2.3, 2.1],
-                        fill: false,
-                        borderColor: 'rgba(0, 100, 170, 1)',
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                });
+            }
+            
+            if (document.getElementById('spendByCategoryChart')) {
+                new Chart(document.getElementById('spendByCategoryChart').getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['IT Equipment', 'Software', 'Furniture', 'Services', 'Marketing'],
+                        datasets: [{
+                            data: [45, 20, 15, 12, 8],
+                            backgroundColor: [
+                                'rgba(228, 30, 38, 0.7)',
+                                'rgba(0, 102, 177, 0.7)',
+                                'rgba(165, 0, 33, 0.7)',
+                                'rgba(67, 67, 67, 0.7)',
+                                'rgba(114, 46, 113, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.raw + '%';
+                                    }
+                                }
+                            }
                         }
                     }
-                }
-            });
-
-            // Status Distribution Chart
-            const statusDistCtx = document.getElementById('statusDistributionChart').getContext('2d');
-            new Chart(statusDistCtx, {
-                type: 'polarArea',
-                data: {
-                    labels: ['Pending', 'Approved', 'Rejected', 'Closed'],
-                    datasets: [{
-                        data: [24, 156, 12, 98],
-                        backgroundColor: [
-                            'rgba(255, 193, 7, 0.7)',
-                            'rgba(40, 167, 69, 0.7)',
-                            'rgba(220, 53, 69, 0.7)',
-                            'rgba(108, 117, 125, 0.7)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 193, 7, 1)',
-                            'rgba(40, 167, 69, 1)',
-                            'rgba(220, 53, 69, 1)',
-                            'rgba(108, 117, 125, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'right',
+                });
+            }
+            
+            if (document.getElementById('vendorRatingChart')) {
+                new Chart(document.getElementById('vendorRatingChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['1 Star', '2 Stars', '3 Stars', '4 Stars', '5 Stars'],
+                        datasets: [{
+                            label: 'Vendor Count',
+                            data: [2, 5, 12, 25, 18],
+                            backgroundColor: 'rgba(0, 102, 177, 0.7)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Number of Vendors'
+                                }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
+            
+            if (document.getElementById('newVendorsChart')) {
+                new Chart(document.getElementById('newVendorsChart').getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'New Vendors',
+                            data: [3, 5, 7, 4, 6, 8],
+                            fill: false,
+                            borderColor: 'rgba(228, 30, 38, 1)',
+                            backgroundColor: 'rgba(228, 30, 38, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Number of Vendors'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            if (document.getElementById('slaComplianceChart')) {
+                new Chart(document.getElementById('slaComplianceChart').getContext('2d'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['Within SLA', 'Exceeded SLA'],
+                        datasets: [{
+                            data: [85, 15],
+                            backgroundColor: [
+                                'rgba(40, 167, 69, 0.7)',
+                                'rgba(220, 53, 69, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.raw + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
         });
     </script>
 </body>
