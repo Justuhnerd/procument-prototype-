@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABSA Bank | Procurement Portal</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --absa-primary: #aa0041;
+            --absa-secondary: #E2001A;
+            --absa-accent: #FFCD00;
+            --absa-dark: #003366;
+            --absa-light: #F5F7FA;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--absa-light);
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .absa-bg-primary {
+            background-color: var(--absa-primary) !important;
+        }
+        
+        .absa-text-primary {
+            color: var(--absa-primary) !important;
+        }
+        
+        .absa-bg-secondary {
+            background-color: var(--absa-secondary) !important;
+        }
+        
+        .absa-text-secondary {
+            color: var(--absa-secondary) !important;
+        }
+        
+        .absa-btn-primary {
+            background-color: var(--absa-primary);
+            color: white;
+            border: none;
+        }
+        
+        .absa-btn-primary:hover {
+            background-color: var(--absa-dark);
+            color: white;
+        }
+        
+        .absa-btn-secondary {
+            background-color: var(--absa-secondary);
+            color: white;
+            border: none;
+        }
+        
+        .absa-btn-secondary:hover {
+            background-color: #C00000;
+            color: white;
+        }
+        
+        .sidebar {
+            background-color: white;
+            min-height: calc(100vh - 56px);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar .nav-link {
+            color: var(--absa-dark);
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: rgba(0, 100, 170, 0.1);
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: var(--absa-primary);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-weight: 600;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: #FFF3CD;
+            color: #856404;
+        }
+        
+        .status-approved {
+            background-color: #D4EDDA;
+            color: #155724;
+        }
+        
+        .status-rejected {
+            background-color: #F8D7DA;
+            color: #721C24;
+        }
+        
+        .status-closed {
+            background-color: #E2E3E5;
+            color: #383D41;
+        }
+        
+        .dashboard-stat {
+            border-left: 4px solid var(--absa-primary);
+            padding-left: 15px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #6C757D;
+        }
+        
+        .table th {
+            background-color: var(--absa-light);
+            color: var(--absa-dark);
+            font-weight: 600;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--absa-primary);
+            box-shadow: 0 0 0 0.25rem rgba(0, 100, 170, 0.25);
+        }
+        
+        .progress {
+            height: 8px;
+            border-radius: 4px;
+        }
+        
+        .progress-bar {
+            background-color: var(--absa-primary);
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #E9ECEF;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--absa-primary);
+            border: 2px solid white;
+        }
+        
+        .timeline-item.completed:before {
+            background-color: var(--absa-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="absa_logo_red.png" alt="ABSA Bank Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge bg-danger rounded-pill">3</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><h6 class="dropdown-header">Notifications</h6></li>
+                            <li><a class="dropdown-item" href="#">New request requires approval</a></li>
+                            <li><a class="dropdown-item" href="#">RFQ response received</a></li>
+                            <li><a class="dropdown-item" href="#">Request #PR-2023-045 approved</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-center" href="#">View all</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i> Theo Masoko
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-0">
+                <div class="p-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#dashboard" data-bs-toggle="tab">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#newRequest" data-bs-toggle="tab">
+                                <i class="fas fa-plus-circle"></i> New Request
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#myRequests" data-bs-toggle="tab">
+                                <i class="fas fa-list"></i> My Requests
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#approvals" data-bs-toggle="tab">
+                                <i class="fas fa-check-circle"></i> Approvals
+                                <span class="badge bg-danger rounded-pill float-end">4</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#rfq" data-bs-toggle="tab">
+                                <i class="fas fa-file-contract"></i> RFQ Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#vendors" data-bs-toggle="tab">
+                                <i class="fas fa-building"></i> Vendors
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#reports" data-bs-toggle="tab">
+                                <i class="fas fa-chart-bar"></i> Reports
+                            </a>
+                        </li>
+                        <li class="nav-item mt-3">
+                            <hr>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#settings" data-bs-toggle="tab">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#help" data-bs-toggle="tab">
+                                <i class="fas fa-question-circle"></i> Help
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 p-4">
+                <div class="tab-content">
+                    <!-- Dashboard Tab -->
+                    <div class="tab-pane fade show active" id="dashboard">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="mb-0 absa-text-primary">Procurement Dashboard</h2>
+                            <div>
+                                <button class="btn absa-btn-primary me-2">
+                                    <i class="fas fa-plus me-1"></i> New Request
+                                </button>
+                                <button class="btn btn-light">
+                                    <i class="fas fa-filter me-1"></i> Filter
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="dashboard-stat">
+                                    <div class="stat-value">24</div>
+                                    <div class="stat-label">Pending Requests</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="dashboard-stat">
+                                    <div class="stat-value">156</div>
+                                    <div class="stat-label">Approved This Month</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="dashboard-stat">
+                                    <div class="stat-value">R 2.4M</div>
+                                    <div class="stat-label">Total Spend</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="dashboard-stat">
+                                    <div class="stat-value">2.3 days</div>
+                                    <div class="stat-label">Avg. Approval Time</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="card mb-4">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <span>Recent Requests</span>
+                                        <a href="#" class="btn btn-sm btn-light">View All</a>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Request ID</th>
+                                                        <th>Item</th>
+                                                        <th>Requested By</th>
+                                                        <th>Date</th>
+                                                        <th>Amount</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>IT-2023-078</td>
+                                                        <td>Dell Laptops (x10)</td>
+                                                        <td>Kagiso Molefe</td>
+                                                        <td>15 Jun 2023</td>
+                                                        <td>P 85,200</td>
+                                                        <td><span class="status-badge status-pending">Pending</span></td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-primary">View</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>IT-2023-077</td>
+                                                        <td>Cisco Network Switches</td>
+                                                        <td>Lebo Modise</td>
+                                                        <td>14 Jun 2023</td>
+                                                        <td>P 120,500</td>
+                                                        <td><span class="status-badge status-approved">Approved</span></td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-primary">View</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>IT-2023-076</td>
+                                                        <td>Microsoft 365 Licenses</td>
+                                                        <td>Tshepo Nkwe</td>
+                                                        <td>13 Jun 2023</td>
+                                                        <td>P 45,780</td>
+                                                        <td><span class="status-badge status-closed">Closed</span></td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-primary">View</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>IT-2023-075</td>
+                                                        <td>VMware Server Licenses</td>
+                                                        <td>Amantle Kgosi</td>
+                                                        <td>12 Jun 2023</td>
+                                                        <td>P 62,000</td>
+                                                        <td><span class="status-badge status-rejected">Rejected</span></td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-primary">View</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>IT-2023-074</td>
+                                                        <td>Video Conferencing Equipment</td>
+                                                        <td>Onalenna Sebele</td>
+                                                        <td>10 Jun 2023</td>
+                                                        <td>P 75,300</td>
+                                                        <td><span class="status-badge status-approved">Approved</span></td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-primary">View</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>IT-2023-073</td>
+                                                        <td>Cybersecurity Training</td>
+                                                        <td>Boitumelo Phiri</td>
+                                                        <td>08 Jun 2023</td>
+                                                        <td>P 28,500</td>
+                                                        <td><span class="status-badge status-approved">Approved</span></td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-primary">View</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>IT-2023-072</td>
+                                                        <td>Data Center UPS</td>
+                                                        <td>Thato Motsumi</td>
+                                                        <td>05 Jun 2023</td>
+                                                        <td>P 185,000</td>
+                                                        <td><span class="status-badge status-pending">Pending</span></td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-primary">View</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>IT-2023-071</td>
+                                                        <td>Cloud Storage Expansion</td>
+                                                        <td>Karabo Mothibi</td>
+                                                        <td>03 Jun 2023</td>
+                                                        <td>P 42,300</td>
+                                                        <td><span class="status-badge status-closed">Closed</span></td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-outline-primary">View</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        Approval Status
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Pending</span>
+                                                <span>24</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: 25%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Approved</span>
+                                                <span>156</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" style="width: 65%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Rejected</span>
+                                                <span>12</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-danger" style="width: 5%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Closed</span>
+                                                <span>98</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-secondary" style="width: 40%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header">
+                                        Top Vendors
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Office Solutions Ltd</span>
+                                                <span>R 450,200</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: 75%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Tech Africa</span>
+                                                <span>R 320,500</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: 55%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Stationery World</span>
+                                                <span>R 180,750</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: 35%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>CleanCo Services</span>
+                                                <span>R 120,300</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: 25%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New Request Tab -->
+                    <div class="tab-pane fade" id="newRequest">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="mb-0 absa-text-primary">New Procurement Request</h2>
+                            <div>
+                                <button class="btn btn-light me-2">
+                                    <i class="fas fa-save me-1"></i> Save Draft
+                                </button>
+                                <button class="btn absa-btn-secondary">
+                                    <i class="fas fa-times me-1"></i> Cancel
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                Request Details
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="requestType" class="form-label">Request Type</label>
+                                            <select class="form-select" id="requestType">
+                                                <option selected disabled>Select request type</option>
+                                                <option>Office Supplies</option>
+                                                <option>IT Equipment</option>
+                                                <option>Furniture</option>
+                                                <option>Software</option>
+                                                <option>Services</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="department" class="form-label">Department</label>
+                                            <select class="form-select" id="department">
+                                                <option selected disabled>Select department</option>
+                                                <option>IT</option>
+                                                <option>Finance</option>
+                                                <option>HR</option>
+                                                <option>Operations</option>
+                                                <option>Marketing</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="itemDescription" class="form-label">Item/Service Description</label>
+                                        <textarea class="form-control" id="itemDescription" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <label for="quantity" class="form-label">Quantity</label>
+                                            <input type="number" class="form-control" id="quantity" min="1">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="estimatedCost" class="form-label">Estimated Cost (P)</label>
+                                            <input type="number" class="form-control" id="estimatedCost" min="0" step="0.01">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="requiredDate" class="form-label">Required By</label>
+                                            <input type="date" class="form-control" id="requiredDate">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="justification" class="form-label">Justification</label>
+                                        <textarea class="form-control" id="justification" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="rfqRequired">
+                                        <label class="form-check-label" for="rfqRequired">RFQ Required (Request for Quotation)</label>
+                                    </div>
+
+                                    <div class="mb-3" id="vendorSelection" style="display: none;">
+                                        <label class="form-label">Preferred Vendors (Select at least 3 for RFQ)</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="vendor1">
+                                            <label class="form-check-label" for="vendor1">Office Solutions Ltd</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="vendor2">
+                                            <label class="form-check-label" for="vendor2">Tech Africa</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="vendor3">
+                                            <label class="form-check-label" for="vendor3">Stationery World</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="vendor4">
+                                            <label class="form-check-label" for="vendor4">CleanCo Services</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="attachments" class="form-label">Attachments (Quotes, Specs, etc.)</label>
+                                        <input class="form-control" type="file" id="attachments" multiple>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn absa-btn-primary">
+                                            <i class="fas fa-paper-plane me-1"></i> Submit Request
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- My Requests Tab -->
+                    <div class="tab-pane fade" id="myRequests">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="mb-0 absa-text-primary">My Requests</h2>
+                            <div>
+                                <button class="btn absa-btn-primary me-2">
+                                    <i class="fas fa-plus me-1"></i> New Request
+                                </button>
+                                <button class="btn btn-light">
+                                    <i class="fas fa-filter me-1"></i> Filter
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="me-3">Showing: <strong>All Requests</strong></span>
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-outline-secondary active">All</button>
+                                        <button class="btn btn-outline-secondary">Pending</button>
+                                        <button class="btn btn-outline-secondary">Approved</button>
+                                        <button class="btn btn-outline-secondary">Rejected</button>
+                                        <button class="btn btn-outline-secondary">Closed</button>
+                                    </div>
+                                </div>
+                                <div class="input-group" style="width: 250px;">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Search requests...">
+                                    <button class="btn btn-sm btn-outline-secondary" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Request ID</th>
+                                                <th>Item</th>
+                                                <th>Type</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>PR-2023-078</td>
+                                                <td>Office Chairs</td>
+                                                <td>Furniture</td>
+                                                <td>15 Jun 2023</td>
+                                                <td>R 12,450</td>
+                                                <td><span class="status-badge status-pending">Pending</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>PR-2023-072</td>
+                                                <td>Projector</td>
+                                                <td>IT Equipment</td>
+                                                <td>08 Jun 2023</td>
+                                                <td>R 8,500</td>
+                                                <td><span class="status-badge status-approved">Approved</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>PR-2023-068</td>
+                                                <td>Team Lunch</td>
+                                                <td>Services</td>
+                                                <td>02 Jun 2023</td>
+                                                <td>R 3,200</td>
+                                                <td><span class="status-badge status-closed">Closed</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>PR-2023-065</td>
+                                                <td>Marketing Brochures</td>
+                                                <td>Services</td>
+                                                <td>28 May 2023</td>
+                                                <td>R 15,000</td>
+                                                <td><span class="status-badge status-rejected">Rejected</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>PR-2023-059</td>
+                                                <td>Software License</td>
+                                                <td>Software</td>
+                                                <td>20 May 2023</td>
+                                                <td>R 24,000</td>
+                                                <td><span class="status-badge status-closed">Closed</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <nav aria-label="Page navigation" class="mt-4">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                        </li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Approvals Tab -->
+                    <div class="tab-pane fade" id="approvals">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="mb-0 absa-text-primary">Pending Approvals</h2>
+                            <div>
+                                <button class="btn btn-light">
+                                    <i class="fas fa-filter me-1"></i> Filter
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Requests Awaiting Your Approval
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Request ID</th>
+                                                <th>Item</th>
+                                                <th>Requested By</th>
+                                                <th>Department</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                                <th>Days Pending</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>PR-2023-078</td>
+                                                <td>Office Chairs</td>
+                                                <td>Sarah Johnson</td>
+                                                <td>HR</td>
+                                                <td>15 Jun 2023</td>
+                                                <td>R 12,450</td>
+                                                <td>2</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-success me-1">Approve</button>
+                                                    <button class="btn btn-sm btn-danger">Reject</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>PR-2023-077</td>
+                                                <td>Laptops (x5)</td>
+                                                <td>Michael Brown</td>
+                                                <td>IT</td>
+                                                <td>14 Jun 2023</td>
+                                                <td>R 85,200</td>
+                                                <td>3</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-success me-1">Approve</button>
+                                                    <button class="btn btn-sm btn-danger">Reject</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>PR-2023-075</td>
+                                                <td>Software License</td>
+                                                <td>David Wilson</td>
+                                                <td>Finance</td>
+                                                <td>12 Jun 2023</td>
+                                                <td>R 45,000</td>
+                                                <td>5</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-success me-1">Approve</button>
+                                                    <button class="btn btn-sm btn-danger">Reject</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                Approval History
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Request ID</th>
+                                                <th>Item</th>
+                                                <th>Requested By</th>
+                                                <th>Decision</th>
+                                                <th>Date</th>
+                                                <th>Comments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>PR-2023-072</td>
+                                                <td>Projector</td>
+                                                <td>Lisa Williams</td>
+                                                <td><span class="status-badge status-approved">Approved</span></td>
+                                                <td>10 Jun 2023</td>
+                                                <td>Within budget</td>
+                                            </tr>
+                                            <tr>
+                                                <td>PR-2023-068</td>
+                                                <td>Team Lunch</td>
+                                                <td>Emma Davis</td>
+                                                <td><span class="status-badge status-approved">Approved</span></td>
+                                                <td>05 Jun 2023</td>
+                                                <td>Team building activity</td>
+                                            </tr>
+                                            <tr>
+                                                <td>PR-2023-065</td>
+                                                <td>Marketing Brochures</td>
+                                                <td>Robert Smith</td>
+                                                <td><span class="status-badge status-rejected">Rejected</span></td>
+                                                <td>30 May 2023</td>
+                                                <td>Exceeds department budget</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RFQ Management Tab -->
+                    <div class="tab-pane fade" id="rfq">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="mb-0 absa-text-primary">RFQ Management</h2>
+                            <div>
+                                <button class="btn btn-light">
+                                    <i class="fas fa-filter me-1"></i> Filter
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Open RFQs
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>RFQ ID</th>
+                                                <th>Request ID</th>
+                                                <th>Item/Service</th>
+                                                <th>Requested By</th>
+                                                <th>Vendors Invited</th>
+                                                <th>Quotes Received</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>RFQ-2023-025</td>
+                                                <td>PR-2023-078</td>
+                                                <td>Office Chairs</td>
+                                                <td>Sarah Johnson</td>
+                                                <td>3</td>
+                                                <td>1</td>
+                                                <td><span class="status-badge status-pending">Open</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">Manage</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>RFQ-2023-024</td>
+                                                <td>PR-2023-076</td>
+                                                <td>Stationery</td>
+                                                <td>Lisa Williams</td>
+                                                <td>4</td>
+                                                <td>3</td>
+                                                <td><span class="status-badge status-pending">Quotes Received</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">Compare</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                RFQ Comparison - RFQ-2023-024 (Stationery)
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Vendor</th>
+                                                <th>Price (R)</th>
+                                                <th>Delivery Time</th>
+                                                <th>Payment Terms</th>
+                                                <th>Rating</th>
+                                                <th>Select</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Office Solutions Ltd</td>
+                                                <td>3,780</td>
+                                                <td>3 days</td>
+                                                <td>30 days</td>
+                                                <td>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check d-flex justify-content-center">
+                                                        <input class="form-check-input" type="radio" name="selectVendor" id="vendor1" checked>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Stationery World</td>
+                                                <td>3,650</td>
+                                                <td>5 days</td>
+                                                <td>14 days</td>
+                                                <td>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                    <i class="far fa-star text-warning"></i>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check d-flex justify-content-center">
+                                                        <input class="form-check-input" type="radio" name="selectVendor" id="vendor2">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Quick Supplies</td>
+                                                <td>4,200</td>
+                                                <td>2 days</td>
+                                                <td>COD</td>
+                                                <td>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                    <i class="far fa-star text-warning"></i>
+                                                    <i class="far fa-star text-warning"></i>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check d-flex justify-content-center">
+                                                        <input class="form-check-input" type="radio" name="selectVendor" id="vendor3">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button class="btn btn-light">
+                                        <i class="fas fa-download me-1"></i> Download All Quotes
+                                    </button>
+                                    <div>
+                                        <button class="btn btn-outline-secondary me-2">
+                                            <i class="fas fa-times me-1"></i> Cancel
+                                        </button>
+                                        <button class="btn absa-btn-primary">
+                                            <i class="fas fa-check me-1"></i> Award to Selected Vendor
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vendors Tab -->
+                    <div class="tab-pane fade" id="vendors">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="mb-0 absa-text-primary">Vendor Management</h2>
+                            <div>
+                                <button class="btn absa-btn-primary me-2">
+                                    <i class="fas fa-plus me-1"></i> Add Vendor
+                                </button>
+                                <button class="btn btn-light">
+                                    <i class="fas fa-filter me-1"></i> Filter
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Approved Vendors
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Vendor ID</th>
+                                                <th>Vendor Name</th>
+                                                <th>Category</th>
+                                                <th>Contact Person</th>
+                                                <th>Email</th>
+                                                <th>Total Spend (R)</th>
+                                                <th>Last Order</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>V-0012</td>
+                                                <td>Office Solutions Ltd</td>
+                                                <td>Office Supplies</td>
+                                                <td>James Peterson</td>
+                                                <td>james@officesol.co.za</td>
+                                                <td>450,200</td>
+                                                <td>10 Jun 2023</td>
+                                                <td><span class="status-badge status-approved">Approved</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>V-0010</td>
+                                                <td>Tech Africa</td>
+                                                <td>IT Equipment</td>
+                                                <td>Sarah Johnson</td>
+                                                <td>sarah@techafrica.co.za</td>
+                                                <td>320,500</td>
+                                                <td>08 Jun 2023</td>
+                                                <td><span class="status-badge status-approved">Approved</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>V-0008</td>
+                                                <td>Stationery World</td>
+                                                <td>Office Supplies</td>
+                                                <td>Michael Brown</td>
+                                                <td>michael@statworld.co.za</td>
+                                                <td>180,750</td>
+                                                <td>05 Jun 2023</td>
+                                                <td><span class="status-badge status-approved">Approved</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>V-0005</td>
+                                                <td>CleanCo Services</td>
+                                                <td>Services</td>
+                                                <td>Lisa Williams</td>
+                                                <td>lisa@cleanco.co.za</td>
+                                                <td>120,300</td>
+                                                <td>01 Jun 2023</td>
+                                                <td><span class="status-badge status-approved">Approved</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                Vendor Performance
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>Top Vendors by Spend</h5>
+                                        <canvas id="vendorSpendChart" height="300"></canvas>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>Vendor Ratings</h5>
+                                        <canvas id="vendorRatingChart" height="300"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reports Tab -->
+                    <div class="tab-pane fade" id="reports">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="mb-0 absa-text-primary">Reports & Analytics</h2>
+                            <div>
+                                <button class="btn absa-btn-primary me-2">
+                                    <i class="fas fa-download me-1"></i> Export
+                                </button>
+                                <button class="btn btn-light">
+                                    <i class="fas fa-calendar me-1"></i> Date Range
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Procurement Overview
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>Spend by Department</h5>
+                                        <canvas id="departmentSpendChart" height="300"></canvas>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>Spend by Category</h5>
+                                        <canvas id="categorySpendChart" height="300"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                Approval Process Metrics
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>Average Approval Time</h5>
+                                        <canvas id="approvalTimeChart" height="300"></canvas>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>Request Status Distribution</h5>
+                                        <canvas id="statusDistributionChart" height="300"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div class="tab-pane fade" id="settings">
+                        <h2 class="mb-4 absa-text-primary">Settings</h2>
+                        <div class="card">
+                            <div class="card-header">
+                                User Preferences
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="notificationPref" class="form-label">Notification Preferences</label>
+                                        <select class="form-select" id="notificationPref">
+                                            <option>Email</option>
+                                            <option>Teams</option>
+                                            <option>Both</option>
+                                            <option>None</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="dailyDigest">
+                                        <label class="form-check-label" for="dailyDigest">Receive daily digest</label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="timezone" class="form-label">Timezone</label>
+                                        <select class="form-select" id="timezone">
+                                            <option>Africa/Johannesburg (SAST)</option>
+                                            <option>UTC</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn absa-btn-primary">Save Preferences</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Help Tab -->
+                    <div class="tab-pane fade" id="help">
+                        <h2 class="mb-4 absa-text-primary">Help & Support</h2>
+                        <div class="card">
+                            <div class="card-header">
+                                Frequently Asked Questions
+                            </div>
+                            <div class="card-body">
+                                <div class="accordion" id="helpAccordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                                How do I submit a new procurement request?
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
+                                            <div class="accordion-body">
+                                                Navigate to the "New Request" tab and fill out all required fields. Be sure to provide a detailed description and justification for your request. Once submitted, the request will be routed to the appropriate approver based on the amount and department.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                                When is an RFQ required?
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+                                            <div class="accordion-body">
+                                                An RFQ (Request for Quotation) is required for any purchase over R10,000 or when purchasing from a new vendor. The system will automatically prompt you to initiate an RFQ if these conditions are met.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingThree">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                                How do I track the status of my request?
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
+                                            <div class="accordion-body">
+                                                You can view all your requests and their current status in the "My Requests" tab. The system will also notify you via email or Teams when there are updates to your request status.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <h5>Still need help?</h5>
+                                    <p>Contact the Procurement Support Team:</p>
+                                    <ul>
+                                        <li>Email: procurement.support@absa.africa</li>
+                                        <li>Phone: +27 11 350 4000 (Ext. 1234)</li>
+                                        <li>Teams Channel: #Procurement-Support</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-3 mt-4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 text-muted">© 2023 ABSA Bank Limited. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-muted">Procurement Portal v2.1.0</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Show/hide vendor selection based on RFQ checkbox
+        document.getElementById('rfqRequired').addEventListener('change', function() {
+            document.getElementById('vendorSelection').style.display = this.checked ? 'block' : 'none';
+        });
+
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vendor Spend Chart
+            const vendorSpendCtx = document.getElementById('vendorSpendChart').getContext('2d');
+            new Chart(vendorSpendCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Office Solutions', 'Tech Africa', 'Stationery World', 'CleanCo', 'Quick Supplies'],
+                    datasets: [{
+                        label: 'Total Spend (R)',
+                        data: [450200, 320500, 180750, 120300, 85600],
+                        backgroundColor: [
+                            'rgba(0, 100, 170, 0.7)',
+                            'rgba(226, 0, 26, 0.7)',
+                            'rgba(255, 205, 0, 0.7)',
+                            'rgba(0, 51, 102, 0.7)',
+                            'rgba(108, 117, 125, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 100, 170, 1)',
+                            'rgba(226, 0, 26, 1)',
+                            'rgba(255, 205, 0, 1)',
+                            'rgba(0, 51, 102, 1)',
+                            'rgba(108, 117, 125, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'R ' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Vendor Rating Chart
+            const vendorRatingCtx = document.getElementById('vendorRatingChart').getContext('2d');
+            new Chart(vendorRatingCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Price', 'Quality', 'Delivery', 'Service', 'Communication'],
+                    datasets: [
+                        {
+                            label: 'Office Solutions',
+                            data: [4, 5, 4, 5, 4],
+                            backgroundColor: 'rgba(0, 100, 170, 0.2)',
+                            borderColor: 'rgba(0, 100, 170, 1)',
+                            pointBackgroundColor: 'rgba(0, 100, 170, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(0, 100, 170, 1)'
+                        },
+                        {
+                            label: 'Tech Africa',
+                            data: [3, 4, 5, 4, 3],
+                            backgroundColor: 'rgba(226, 0, 26, 0.2)',
+                            borderColor: 'rgba(226, 0, 26, 1)',
+                            pointBackgroundColor: 'rgba(226, 0, 26, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(226, 0, 26, 1)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 5
+                        }
+                    }
+                }
+            });
+
+            // Department Spend Chart
+            const deptSpendCtx = document.getElementById('departmentSpendChart').getContext('2d');
+            new Chart(deptSpendCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['IT', 'Finance', 'HR', 'Operations', 'Marketing'],
+                    datasets: [{
+                        data: [1200000, 850000, 650000, 450000, 300000],
+                        backgroundColor: [
+                            'rgba(0, 100, 170, 0.7)',
+                            'rgba(226, 0, 26, 0.7)',
+                            'rgba(255, 205, 0, 0.7)',
+                            'rgba(0, 51, 102, 0.7)',
+                            'rgba(108, 117, 125, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 100, 170, 1)',
+                            'rgba(226, 0, 26, 1)',
+                            'rgba(255, 205, 0, 1)',
+                            'rgba(0, 51, 102, 1)',
+                            'rgba(108, 117, 125, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += 'R ' + context.raw.toLocaleString();
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Category Spend Chart
+            const catSpendCtx = document.getElementById('categorySpendChart').getContext('2d');
+            new Chart(catSpendCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['IT Equipment', 'Software', 'Office Supplies', 'Services', 'Furniture'],
+                    datasets: [{
+                        data: [1500000, 800000, 600000, 400000, 300000],
+                        backgroundColor: [
+                            'rgba(0, 100, 170, 0.7)',
+                            'rgba(226, 0, 26, 0.7)',
+                            'rgba(255, 205, 0, 0.7)',
+                            'rgba(0, 51, 102, 0.7)',
+                            'rgba(108, 117, 125, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 100, 170, 1)',
+                            'rgba(226, 0, 26, 1)',
+                            'rgba(255, 205, 0, 1)',
+                            'rgba(0, 51, 102, 1)',
+                            'rgba(108, 117, 125, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += 'R ' + context.raw.toLocaleString();
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Approval Time Chart
+            const approvalTimeCtx = document.getElementById('approvalTimeChart').getContext('2d');
+            new Chart(approvalTimeCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Average Approval Time (days)',
+                        data: [3.2, 2.8, 3.5, 2.5, 2.3, 2.1],
+                        fill: false,
+                        borderColor: 'rgba(0, 100, 170, 1)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Status Distribution Chart
+            const statusDistCtx = document.getElementById('statusDistributionChart').getContext('2d');
+            new Chart(statusDistCtx, {
+                type: 'polarArea',
+                data: {
+                    labels: ['Pending', 'Approved', 'Rejected', 'Closed'],
+                    datasets: [{
+                        data: [24, 156, 12, 98],
+                        backgroundColor: [
+                            'rgba(255, 193, 7, 0.7)',
+                            'rgba(40, 167, 69, 0.7)',
+                            'rgba(220, 53, 69, 0.7)',
+                            'rgba(108, 117, 125, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 193, 7, 1)',
+                            'rgba(40, 167, 69, 1)',
+                            'rgba(220, 53, 69, 1)',
+                            'rgba(108, 117, 125, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
